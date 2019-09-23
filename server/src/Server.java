@@ -1,48 +1,50 @@
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class Server {
-	private int port = 5000;
-	private BufferedReader input = null;
-	private PrintWriter output = null;
-	private ServerSocket server = null;
-	private Socket socket = null;
+public class Server extends Thread {
+	protected int port;
+	protected BufferedReader input = null;
+	protected PrintWriter output = null;
+	protected ServerSocket server = null;
+	protected Socket socket = null;
+	public String data = "";
 
-	public Server() {
+	public Server(int inPort) {
+		port = inPort;
 		try {
 			server = new ServerSocket(port);
-			System.out.println("Created server on port " + port);
-			socket = server.accept();
-			socket.setKeepAlive(true);
-			System.out.println("Some ass just connected");
-			input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-			output = new PrintWriter(socket.getOutputStream());
-			
-			listenAndSend();
-			
 		} catch (IOException e) {
-			System.out.println(e);
+			e.printStackTrace();
 		}
+
 	}
 
-	public void listenAndSend() {
-		String inputString = "";
+	public void run() {
 
-		while (socket.isConnected()) {
-			output.println("HTTP/1.1 200 OK");
-			output.println("Hello There");
-			output.println("stop");
-
-		}
-		while(socket.isConnected()) {
-
+		try {
+			socket = server.accept();
+			socket.setKeepAlive(true);
+		} catch (IOException e1) {
+			e1.printStackTrace();
 		}
 
+		Thread inputThread = new Listener(socket, port);
+		inputThread.start();
 
+	}
+
+	public void sendData(String inString) {
+		try {
+			Thread.sleep(100);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Thread outputThread = new Sender(socket, port, inString);
+		outputThread.start();
 	}
 
 }

@@ -7,8 +7,10 @@ public class PlayBattleship
 		Player player1 = new LocalPlayer();
 		Player player2 = new NetworkPlayer();
 		
-		ClientNetworkConnection client = new ClientNetworkConnection();
-		System.out.println(client.getString());
-		client.closeConnection();
+		ClientNetworkConnection client = new ClientNetworkConnection(5000);
+		client.run();
+		
+		client.sendData("Hello Server!");
+		client.sendData("How are you?");
 	}
 }

@@ -1,10 +1,12 @@
 import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.net.UnknownHostException;
 
-public class ClientNetworkConnection {
+public class ClientNetworkConnection extends Thread {
 	private String url = "127.0.0.1";
 	private int port = 5000;
 
@@ -12,40 +14,49 @@ public class ClientNetworkConnection {
 	private PrintWriter output = null;// Output Stream to server.
 	private Socket socket = null;
 
-	public ClientNetworkConnection() throws IOException { // Creates a network connection for the client.
-		socket = new Socket(url, port);
-		socket.setKeepAlive(true); // Keeps our socket connection alive.
-		input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-		output = new PrintWriter(socket.getOutputStream());
-
-	}
-
-	public String getString() { //Simple get message from server.
-		String inputString = ""; // String memory for data from server. Read line by line
-		String returnMessage = ""; //Full message from the server.
+	public ClientNetworkConnection(int inPort){ // Creates a network connection for the client.
+		port = inPort;
 		try {
-			while (!inputString.equals("stop")) {
-				inputString = input.readLine();
-				returnMessage = returnMessage.concat("\n" + inputString);
-			}
+			socket = new Socket(url, port);
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} catch (IOException e) {
-			System.out.println(e);
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		return returnMessage;
 	}
 
-	public void sendString() {//Simple send message to server.
-		
-	}
 
-	public void closeConnection() {//Closes all connections and sockets. 
+	public void run() {
 		try {
-			socket.close();
-			input.close();
-			output.close();
+
+			
+			//DataOutputStream out = new DataOutputStream(socket.getOutputStream());
+			output = new PrintWriter(socket.getOutputStream());
+			output.println("Hello There.");
+			output.flush();
+			
+			Thread inputThread = new Listener(socket,port);
+			inputThread.start();
+			
+
+		} catch (UnknownHostException e) {
+			e.printStackTrace();
 		} catch (IOException e) {
-			System.out.println(e);
+			e.printStackTrace();
 		}
+	}
+	
+	public void sendData(String inString) {
+		try {
+			Thread.sleep(100);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Thread outputThread = new Sender(socket, port, inString);
+		outputThread.start();
 	}
 
 }
