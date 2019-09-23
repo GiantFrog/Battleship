@@ -6,6 +6,5 @@ public class BattleshipServer {
 		server.run();
 		server.sendData("This stuff");
 		server.sendData("This other stuff.");
-		
 	}
 }
