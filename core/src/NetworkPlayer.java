@@ -5,4 +5,9 @@ public class NetworkPlayer extends Player
 		//TODO get their name and all the deets from across the internet!
 		super("Pat the Distant");
 	}
+	
+	public NetworkPlayer (String name)
+	{
+		super(name);
+	}
 }

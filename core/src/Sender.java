@@ -14,7 +14,6 @@ public class Sender extends Thread {
 		try {
 			output = new PrintWriter(socket.getOutputStream());
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -24,6 +23,4 @@ public class Sender extends Thread {
 		output.println(message);
 		output.flush();
 	}
-	
-
 }
