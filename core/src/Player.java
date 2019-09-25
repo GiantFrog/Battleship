@@ -7,5 +7,8 @@ public abstract class Player
 	{
 		this.name = name;
 		board = new Board(this);
+		setupBoard();
 	}
+	
+	abstract void setupBoard();
 }

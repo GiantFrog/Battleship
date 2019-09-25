@@ -10,4 +10,9 @@ public class NetworkPlayer extends Player
 	{
 		super(name);
 	}
+	
+	void setupBoard()
+	{
+	
+	}
 }

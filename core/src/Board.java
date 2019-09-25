@@ -1,19 +1,23 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Board
 {
 	private int height = 10, width = 10;
 	private Player player;
 	ArrayList<Ship> ships;
-	private boolean[][] occupied, shotAt;
+	private boolean[][] shotAt;
+	private char[][] occupied;
 	
 	public Board (Player player)
 	{
 		this.player = player;
 		player.board = this;
 		ships = new ArrayList<>();
-		occupied = new boolean[width][height];	//both of these should set every value
-		shotAt = new boolean[width][height];	//to false by default.
+		occupied = new char[width][height];
+		for (char[] row: occupied)
+			Arrays.fill(row, '_');
+		shotAt = new boolean[width][height];	//this should set every value to false by default.
 	}
 	
 	//returns true if the ship was successfully added to the board at that location
@@ -63,7 +67,7 @@ public class Board
 				counter = bowY;
 				while (counter < sternY)
 				{
-					if (occupied[bowX][counter])
+					if (occupied[bowX][counter] != '_')
 						return false;
 					counter++;
 				}
@@ -72,7 +76,7 @@ public class Board
 				counter = bowX;
 				while (counter > sternX)
 				{
-					if (occupied[counter][bowY])
+					if (occupied[counter][bowY] != '_')
 						return false;
 					counter--;
 				}
@@ -81,7 +85,7 @@ public class Board
 				counter = bowY;
 				while (counter > sternY)
 				{
-					if (occupied[bowX][counter])
+					if (occupied[bowX][counter] != '_')
 						return false;
 					counter--;
 				}
@@ -90,7 +94,7 @@ public class Board
 				counter = bowX;
 				while (counter < sternX)
 				{
-					if (occupied[counter][bowY])
+					if (occupied[counter][bowY] != '_')
 						return false;
 					counter++;
 				}
@@ -108,7 +112,7 @@ public class Board
 				counter = bowY;
 				while (counter < sternY)
 				{
-					occupied[bowX][counter] = true;
+					occupied[bowX][counter] = ship.character;
 					counter++;
 				}
 				break;
@@ -116,7 +120,7 @@ public class Board
 				counter = bowX;
 				while (counter > sternX)
 				{
-					occupied[counter][bowY] = true;
+					occupied[counter][bowY] = ship.character;
 					counter--;
 				}
 				break;
@@ -124,7 +128,7 @@ public class Board
 				counter = bowY;
 				while (counter > sternY)
 				{
-					occupied[bowX][counter] = true;
+					occupied[bowX][counter] = ship.character;
 					counter--;
 				}
 				break;
@@ -132,7 +136,7 @@ public class Board
 				counter = bowX;
 				while (counter < sternX)
 				{
-					occupied[counter][bowY] = true;
+					occupied[counter][bowY] = ship.character;
 					counter++;
 				}
 				break;
@@ -145,7 +149,7 @@ public class Board
 	public boolean takeShot (int x, int y)
 	{
 		shotAt[x][y] = true;
-		if (occupied[x][y])
+		if (occupied[x][y] != '_')
 			return true;
 		//TODO get ship at that coordinate? inform the ship it has been damaged?
 		return false;

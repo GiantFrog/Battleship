@@ -1,5 +1,7 @@
 public abstract class Ship
 {
+	String name;
+	char character;
 	int size, bowX, bowY, sternX, sternY, orientation;
 	//TODO should we track hits? when hits == size, sink()?
 	

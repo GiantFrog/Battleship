@@ -7,17 +7,15 @@ public class TerminalPlayer extends Player
 	{
 		super("Avery the Local");
 		playerScanner = new Scanner(System.in);
-		setupBoard();
 	}
 	public TerminalPlayer (String name)
 	{
 		super(name);
 		playerScanner = new Scanner(System.in);
-		setupBoard();
 	}
 	
 	//places ships based on a user's input
-	private void setupBoard()
+	void setupBoard()
 	{
 		//TODO less copy/paste
 		while (true)
