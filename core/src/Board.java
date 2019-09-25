@@ -154,4 +154,6 @@ public class Board
 		//TODO get ship at that coordinate? inform the ship it has been damaged?
 		return false;
 	}
+	
+
 }

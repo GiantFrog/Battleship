@@ -8,16 +8,17 @@ public class Server extends Thread {
 	private ServerSocket server = null;
 	private Socket socket = null;
 
-	public Server(int inPort, Queue<String> messages) {
+	public Server(int inPort, Player localPlayer) {
 		port = inPort;
 		try {
 			server = new ServerSocket(port);
+			System.out.println("Waiting for connection...");
 			socket = server.accept();
 			socket.setKeepAlive(true);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		Thread inputThread = new Listener(socket, messages);
+		Thread inputThread = new Listener(socket, localPlayer);
 		inputThread.start();
 	}
 
