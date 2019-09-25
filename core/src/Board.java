@@ -154,6 +154,35 @@ public class Board
 		//TODO get ship at that coordinate? inform the ship it has been damaged?
 		return false;
 	}
+	public String getBoard() {
+		char[][] copyBoard = new char[width][height];
+		String builtBoard = "";
+		for(int i = 0; i<width; i++) {
+			copyBoard[i] = occupied[i].clone();
+		}
+		
+		for(int i = 0; i<height;i++) {
+			for(int j = 0; j<width; j++) {
+				if(shotAt[j][i] == true) {
+					if(occupied[j][i] != '~') {
+						copyBoard[j][i] = 'X';
+					}else {
+						copyBoard[j][i] = 'O';
+					}
+				}
+			}
+		}
+		
+		for(int i = 0; i<height;i++) {
+			for(int j = 0; j<width; j++) {
+				builtBoard += copyBoard[j][i];
+			}
+			builtBoard += '\n';
+		}
+		
+		
+		return builtBoard;
+	}
 	
 	//call wasHit when local player fires a shot and the opponent tells you it was a hit. wasMissed for missed shots.
 	public void wasHit (int x, int y)

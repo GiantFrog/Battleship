@@ -18,7 +18,7 @@ public class Server extends Thread {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		Thread inputThread = new Listener(socket, localPlayer);
+		Thread inputThread = new Listener(socket, localPlayer, port);
 		inputThread.start();
 	}
 

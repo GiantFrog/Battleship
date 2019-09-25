@@ -19,7 +19,7 @@ public class ClientNetworkConnection extends Thread {
 			//output.println("Hello There.");
 			//output.flush();
 			
-			Thread inputThread = new Listener(socket, localPlayer);
+			Thread inputThread = new Listener(socket, localPlayer,port);
 			inputThread.start();
 		}
 		catch (IOException e) {

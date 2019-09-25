@@ -10,6 +10,7 @@ public class PlayBattleship
 		ClientNetworkConnection client = new ClientNetworkConnection(5000, "127.0.0.1", player1);
 		//client.run();
 		client.sendData("0.0");
+		client.sendData("Your Turn.");
 		//client.sendData("Hello Server!");
 		//client.sendData("How are you?");
 		
