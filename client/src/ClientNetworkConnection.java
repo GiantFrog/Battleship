@@ -6,12 +6,11 @@ import java.util.Queue;
 
 public class ClientNetworkConnection extends Thread {
 	private int port;
-
 	//private BufferedReader input = null;// Input Stream from server.
 	//private PrintWriter output = null;// Output Stream to server.
 	private Socket socket = null;
 
-	public ClientNetworkConnection(int inPort, String url, Queue<String> messages){ // Creates a network connection for the client.
+	public ClientNetworkConnection(int inPort, String url,Player localPlayer){ // Creates a network connection for the client.
 		port = inPort;
 		try {
 			socket = new Socket(url, port);
@@ -20,7 +19,7 @@ public class ClientNetworkConnection extends Thread {
 			//output.println("Hello There.");
 			//output.flush();
 			
-			Thread inputThread = new Listener(socket, messages);
+			Thread inputThread = new Listener(socket, localPlayer);
 			inputThread.start();
 		}
 		catch (IOException e) {

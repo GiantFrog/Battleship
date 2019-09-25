@@ -3,15 +3,18 @@ import java.util.Scanner;
 public class TerminalPlayer extends Player
 {
 	Scanner playerScanner;
+
 	public TerminalPlayer ()
 	{
 		super("Avery the Local");
 		playerScanner = new Scanner(System.in);
+		setupBoard();
 	}
 	public TerminalPlayer (String name)
 	{
 		super(name);
 		playerScanner = new Scanner(System.in);
+		setupBoard();
 	}
 	
 	//places ships based on a user's input
@@ -30,5 +33,7 @@ public class TerminalPlayer extends Player
 				System.out.println("Your ship can't fit there!");
 			}
 		}
+		
+		System.out.println("");
 	}
 }

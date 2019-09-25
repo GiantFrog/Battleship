@@ -6,13 +6,10 @@ public class PlayBattleship
 {
 	public static void main (String[] args) throws IOException
 	{
-		//Player player1 = new TerminalPlayer();
-		Queue<String> messages = new LinkedList<>();
-		
-		ClientNetworkConnection client = new ClientNetworkConnection(5000, "127.0.0.1", messages);
+		Player player1 = new TestPlayer();		
+		ClientNetworkConnection client = new ClientNetworkConnection(5000, "127.0.0.1", player1);
 		//client.run();
-		client.sendData("This is a nice hotel.");
-		
+		client.sendData("0.0");
 		//client.sendData("Hello Server!");
 		//client.sendData("How are you?");
 		
