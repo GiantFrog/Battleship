@@ -184,11 +184,12 @@ public class Board
 		return builtBoard;
 	}
 	
+	
 	//call wasHit when local player fires a shot and the opponent tells you it was a hit. wasMissed for missed shots.
 	public void wasHit (int x, int y)
 	{
 		shotAt[x][y] = true;
-		occupied[x][y] = 'O';
+		occupied[x][y] = 'X';
 	}
 	public void wasMissed (int x, int y)
 	{

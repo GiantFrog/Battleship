@@ -1,19 +1,21 @@
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Scanner;
 
 public class PlayBattleship
 {
 	public static void main (String[] args) throws IOException
 	{
+		String ip = "127.0.0.1";
+		int port = 5000;
+		Scanner scan = new Scanner(System.in);
+		System.out.println("What is the ip of the server?");
+		ip = scan.next();
+		System.out.println("What is the port of the server?");
+		port = Integer.parseInt(scan.next());
 		Player player1 = new TestPlayer();		
-		ClientNetworkConnection client = new ClientNetworkConnection(5000, "127.0.0.1", player1);
-		//client.run();
-		client.sendData("0.0");
+		ClientNetworkConnection client = new ClientNetworkConnection(port, ip, player1);
 		client.sendData("Your Turn.");
-		//client.sendData("Hello Server!");
-		//client.sendData("How are you?");
-		
-		Player player2 = new NetworkPlayer();
 	}
 }

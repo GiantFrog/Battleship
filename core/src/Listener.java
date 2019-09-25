@@ -8,8 +8,9 @@ import java.util.Scanner;
 public class Listener extends Thread{
 	private BufferedReader input;
 	private Player localPlayer;
+	private NetworkPlayer netPlayer = new NetworkPlayer();
 	private Socket socket;
-	private int port;
+	private int port,lastx,lasty;
 	public Listener(Socket inSocket, Player inLocalPlayer, int inPort) {
 		this.localPlayer = inLocalPlayer;
 		this.port = inPort;
@@ -24,7 +25,6 @@ public class Listener extends Thread{
 	@Override
 	public void run() {
 		String message = "";
-		int[] coordinates = new int[2];
 		while (true) {
 			try {
 				while(input.ready()) {
@@ -36,8 +36,14 @@ public class Listener extends Thread{
 							sendData("Your Turn.");
 							break;
 						case "HIT":
+							netPlayer.board.wasHit(lastx, lasty);
+							System.out.println("Their Board");
+							System.out.println(netPlayer.board.getBoard());
 							break;
 						case "MISS":
+							netPlayer.board.wasMissed(lastx, lasty);
+							System.out.println("Their Board");
+							System.out.println(netPlayer.board.getBoard());
 							break;
 						case "":
 							break;
@@ -66,16 +72,18 @@ public class Listener extends Thread{
 	private void hitMeCoordinates(int[] coordinates) {
 		boolean hitorNah = localPlayer.board.takeShot(coordinates[0], coordinates[1]);
 		if(hitorNah) {
-			System.out.println("HIT");
+			System.out.println("You are HIT");
 			sendData("HIT");
 		}else {
-			System.out.println("Nah.");
+			System.out.println("Nah. Didn't hit.");
 			sendData("MISS");
 		}
+		System.out.println("Your Board");
+		System.out.println("");
 		System.out.println(localPlayer.board.getBoard());
 	}
 	
-	private void sendData(String inString) {
+	private void sendData(String inString) { //Send data to client.
 		try {
 			Thread.sleep(100);
 		} catch (InterruptedException e) {
@@ -89,8 +97,10 @@ public class Listener extends Thread{
 		System.out.println("What is your X to fire?");
 		Scanner scan = new Scanner(System.in);
 		String x = scan.next();
+		lastx  = Integer.parseInt(x);
 		System.out.println("What is your Y to fire?");
 		String y = scan.next();
+		lasty = Integer.parseInt(y);
 		String message = x.concat("." + y);
 		System.out.println("Firing.");
 		this.sendData(message);

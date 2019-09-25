@@ -13,6 +13,6 @@ public class NetworkPlayer extends Player
 	
 	void setupBoard()
 	{
-	
+		
 	}
 }
