@@ -110,7 +110,7 @@ public class Board
 		{
 			case 0:	//facing north
 				counter = bowY;
-				while (counter < sternY)
+				while (counter <= sternY)
 				{
 					occupied[bowX][counter] = ship.character;
 					counter++;
@@ -118,7 +118,7 @@ public class Board
 				break;
 			case 1:	//facing east
 				counter = bowX;
-				while (counter > sternX)
+				while (counter >= sternX)
 				{
 					occupied[counter][bowY] = ship.character;
 					counter--;
@@ -126,7 +126,7 @@ public class Board
 				break;
 			case 2:	//facing south
 				counter = bowY;
-				while (counter > sternY)
+				while (counter >= sternY)
 				{
 					occupied[bowX][counter] = ship.character;
 					counter--;
@@ -134,7 +134,7 @@ public class Board
 				break;
 			case 3:	//facing west
 				counter = bowX;
-				while (counter < sternX)
+				while (counter <= sternX)
 				{
 					occupied[counter][bowY] = ship.character;
 					counter++;

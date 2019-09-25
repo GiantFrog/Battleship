@@ -55,6 +55,15 @@ public class Listener extends Thread{
 
 				e.printStackTrace();
 			}
+			//very lazy way to keep this thing from maxing out the CPU
+			try
+			{
+				Thread.sleep(1000, 0);
+			}
+			catch (InterruptedException e)
+			{
+				System.out.println("Oh no.");
+			}
 		}
 	}
 	
