@@ -16,7 +16,7 @@ public class Board
 		ships = new ArrayList<>();
 		occupied = new char[width][height];
 		for (char[] row: occupied)
-			Arrays.fill(row, '_');
+			Arrays.fill(row, '~');
 		shotAt = new boolean[width][height];	//this should set every value to false by default.
 	}
 	
@@ -67,7 +67,7 @@ public class Board
 				counter = bowY;
 				while (counter < sternY)
 				{
-					if (occupied[bowX][counter] != '_')
+					if (occupied[bowX][counter] != '~')
 						return false;
 					counter++;
 				}
@@ -76,7 +76,7 @@ public class Board
 				counter = bowX;
 				while (counter > sternX)
 				{
-					if (occupied[counter][bowY] != '_')
+					if (occupied[counter][bowY] != '~')
 						return false;
 					counter--;
 				}
@@ -85,7 +85,7 @@ public class Board
 				counter = bowY;
 				while (counter > sternY)
 				{
-					if (occupied[bowX][counter] != '_')
+					if (occupied[bowX][counter] != '~')
 						return false;
 					counter--;
 				}
@@ -94,7 +94,7 @@ public class Board
 				counter = bowX;
 				while (counter < sternX)
 				{
-					if (occupied[counter][bowY] != '_')
+					if (occupied[counter][bowY] != '~')
 						return false;
 					counter++;
 				}
@@ -145,15 +145,24 @@ public class Board
 		return true;
 	}
 	
-	//fires a shot at the board. returns true if a ship is hit. marks the space as shotAt.
+	//call when local player takes fire from the opponent. returns true if a ship is hit. marks the space as shotAt.
 	public boolean takeShot (int x, int y)
 	{
 		shotAt[x][y] = true;
-		if (occupied[x][y] != '_')
+		if (occupied[x][y] != '~')
 			return true;
 		//TODO get ship at that coordinate? inform the ship it has been damaged?
 		return false;
 	}
 	
-
+	//call wasHit when local player fires a shot and the opponent tells you it was a hit. wasMissed for missed shots.
+	public void wasHit (int x, int y)
+	{
+		shotAt[x][y] = true;
+		occupied[x][y] = 'O';
+	}
+	public void wasMissed (int x, int y)
+	{
+		shotAt[x][y] = true;
+	}
 }

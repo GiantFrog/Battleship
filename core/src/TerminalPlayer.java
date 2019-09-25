@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class TerminalPlayer extends Player
 {
-	Scanner playerScanner;
+	private Scanner playerScanner;
 
 	public TerminalPlayer ()
 	{
@@ -33,7 +33,5 @@ public class TerminalPlayer extends Player
 				System.out.println("Your ship can't fit there!");
 			}
 		}
-		
-		System.out.println("");
 	}
 }
