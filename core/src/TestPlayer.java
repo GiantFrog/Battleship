@@ -3,10 +3,12 @@ public class TestPlayer extends Player
 	public TestPlayer()
 	{
 		super("Jesse the Fool");
+		setupBoard();
 	}
 	public TestPlayer (String name)
 	{
 		super(name);
+		setupBoard();
 	}
 	
 	void setupBoard ()
