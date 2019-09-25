@@ -47,6 +47,10 @@ public class Listener extends Thread{
 							break;
 						case "":
 							break;
+						case "You Win!":
+							System.out.println("You WON!");
+							System.exit(0);
+							break;
 						default: //Coordinates
 							hitMeCoordinates(parseInboundCommand(message));
 					}
@@ -78,10 +82,15 @@ public class Listener extends Thread{
 		
 		return coordinates;
 	}
-	private void hitMeCoordinates(int[] coordinates) {
+	private void hitMeCoordinates(int[] coordinates) {// When we are hit.
 		boolean hitorNah = localPlayer.board.takeShot(coordinates[0], coordinates[1]);
 		if(hitorNah) {
 			System.out.println("You are HIT");
+			if(localPlayer.board.didLose()) {
+				System.out.println("You lose.");
+				sendData("You Win!");
+				System.exit(0);
+			}
 			sendData("HIT");
 		}else {
 			System.out.println("Nah. Didn't hit.");

@@ -195,4 +195,24 @@ public class Board
 	{
 		shotAt[x][y] = true;
 	}
+	
+	public boolean didLose() {
+		String check = getBoard();
+		if(check.contains("C")) {
+			return false;
+		}
+		if(check.contains("B")) {
+			return false;
+		}
+		if(check.contains("D")) {
+			return false;
+		}
+		if(check.contains("S")) {
+			return false;
+		}
+		if(check.contains("P")) {
+			return false;
+		}
+		return true;
+	}
 }

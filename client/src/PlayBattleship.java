@@ -14,7 +14,8 @@ public class PlayBattleship
 		ip = scan.next();
 		System.out.println("What is the port of the server?");
 		port = Integer.parseInt(scan.next());
-		Player player1 = new TestPlayer();		
+		Player player1 = new TerminalPlayer();
+		System.out.println("Make sure to launch server first.");
 		ClientNetworkConnection client = new ClientNetworkConnection(port, ip, player1);
 		client.sendData("Your Turn.");
 	}
